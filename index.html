@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Victor Izekor</title>
+<meta name="description" content="Bioinformatics &amp; software engineering portfolio — Victor Izekor, UMBC." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f6f2;
+    --surface: #ffffff;
+    --ink: #1a2420;
+    --ink-soft: #4b564f;
+    --line: #dcdcd1;
+    --accent: #146356;
+    --accent-ink: #ffffff;
+    --accent-2: #a97327;
+    --code-bg: #eceee6;
+    --shadow: 0 1px 2px rgba(26,36,32,0.04), 0 8px 24px rgba(26,36,32,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101512;
+      --surface: #161d19;
+      --ink: #e8ebe6;
+      --ink-soft: #a6b0a9;
+      --line: #29332d;
+      --accent: #56c3a4;
+      --accent-ink: #0a1310;
+      --accent-2: #d9a75f;
+      --code-bg: #1c241f;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101512;
+    --surface: #161d19;
+    --ink: #e8ebe6;
+    --ink-soft: #a6b0a9;
+    --line: #29332d;
+    --accent: #56c3a4;
+    --accent-ink: #0a1310;
+    --accent-2: #d9a75f;
+    --code-bg: #1c241f;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-inline: max(20px, calc((100vw - 880px) / 2));
+  }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; text-wrap: balance; margin: 0; color: var(--ink); }
+  a { color: inherit; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace; }
+
+  header.hero {
+    position: relative;
+    padding-block: 76px 56px;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .seq-strip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .seq-strip span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.5em;
+    white-space: nowrap;
+    color: var(--accent);
+    opacity: 0.14;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  h1.name { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 500; }
+  .tagline {
+    margin: 14px 0 0;
+    max-width: 46em;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+  }
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .btn.primary:hover { opacity: 0.92; }
+
+  main { padding-block: 56px; }
+  section + section { margin-top: 64px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+  }
+  .section-head h2 { font-size: 1.5rem; font-weight: 500; }
+  .section-head .count { font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; color: var(--ink-soft); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+  }
+  .about-grid p { color: var(--ink-soft); max-width: 62ch; }
+  .about-grid p + p { margin-top: 14px; }
+  .facts { display: grid; gap: 14px; align-content: start; }
+  .fact { border-left: 2px solid var(--accent); padding-left: 14px; }
+  .fact .k { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+  .fact .v { font-size: 0.95rem; margin-top: 2px; }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card h3 { font-size: 1.15rem; font-weight: 500; }
+  .card .role { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; color: var(--accent-2); }
+  .card p { color: var(--ink-soft); font-size: 0.93rem; margin: 0; flex-grow: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    background: var(--code-bg);
+    color: var(--ink-soft);
+    padding: 3px 8px;
+    border-radius: 5px;
+  }
+  .card-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  .exp-item { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: baseline; }
+  .exp-item + .exp-item { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .exp-item h3 { font-size: 1.05rem; font-weight: 500; }
+  .exp-item .org { color: var(--ink-soft); font-size: 0.92rem; margin-top: 2px; }
+  .exp-item .when { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
+  .exp-item ul { margin: 12px 0 0; padding-left: 20px; color: var(--ink-soft); font-size: 0.93rem; }
+  .exp-item li + li { margin-top: 6px; }
+
+  .skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 32px; }
+  .skill-group .k { font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-2); margin-bottom: 8px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 0.85rem; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-block: 36px 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  footer .signoff { color: var(--ink-soft); font-size: 0.88rem; }
+  footer .links { display: flex; gap: 18px; flex-wrap: wrap; }
+  footer .links a { font-size: 0.9rem; text-decoration: none; color: var(--ink); }
+  footer .links a:hover { color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .projects { grid-template-columns: 1fr; }
+    .skills { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="seq-strip" aria-hidden="true">
+    <span>GATTACCG&nbsp;&nbsp;·&nbsp;&nbsp;CTGACGTA&nbsp;&nbsp;·&nbsp;&nbsp;ALIGN( s1, s2 )&nbsp;&nbsp;·&nbsp;&nbsp;O(1)&nbsp;&nbsp;·&nbsp;&nbsp;TACGGTAC&nbsp;&nbsp;·&nbsp;&nbsp;GGCATTAG</span>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow">Baltimore, MD</p>
+    <h1 class="name">Victor Izekor</h1>
+    <p class="tagline">Bioinformatics &amp; Computational Biology student at UMBC, building software at the intersection of biology, data, and healthcare — from sequence alignment algorithms to full-stack clinical tools.</p>
+    <div class="hero-links">
+      <a class="btn primary" href="mailto:victorizekor@icloud.com">Email</a>
+      <a class="btn" href="https://linkedin.com/in/victor-izekor-3002lbb" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/vizekor1" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="resume-bioinformatics.pdf" target="_blank" rel="noopener">Résumé — Bioinformatics</a>
+      <a class="btn" href="resume-software.pdf" target="_blank" rel="noopener">Résumé — Software</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <div class="section-head"><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a Bioinformatics &amp; Computational Biology student at UMBC (Computer Science &amp; Engineering track), graduating May 2027. My work sits between the two fields the major implies: algorithms that make sense of biological data, and software engineered carefully enough to trust with it.</p>
+        <p>I work part-time as a Patient Care Technician Intern in the Neuro ICU at Johns Hopkins Bayview, which puts me close to how clinical and neurological data actually moves through a hospital system — context I bring back into how I think about health-tech software.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Focus</div><div class="v">Bioinformatics, full-stack development, health-tech</div></div>
+        <div class="fact"><div class="k">Languages</div><div class="v">Python, C++, JavaScript</div></div>
+        <div class="fact"><div class="k">School</div><div class="v">UMBC — B.S. Bioinformatics, Expected May 2027</div></div>
+        <div class="fact"><div class="k">Incoming</div><div class="v">Undergraduate researcher, Padmanabhan Lab (cancer biology) — Fall 2026</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="count mono">04 selected</span>
+    </div>
+    <div class="projects">
+      <div class="card">
+        <h3>Sequence Alignment Algorithms</h3>
+        <p class="role">Computational Bioinformatics · UMBC coursework</p>
+        <p>Needleman-Wunsch (global) and Smith-Waterman (local) dynamic programming implementations in Python for pairwise sequence comparison, validated against real BLAST/UniProt data.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Dynamic Programming</span><span class="tag">BLAST / UniProt</span></div>
+        <a class="card-link" href="https://github.com/vizekor1/sequence-alignment-algorithms" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="card">
+        <h3>Custom Hash Table</h3>
+        <p class="role">Data Structures &amp; Algorithms · CMSC 341</p>
+        <p>A hash table built from scratch in C++ with separate chaining, dynamic resizing, and full manual memory management, tuned for O(1) average-case lookup.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">Data Structures</span><span class="tag">Big-O Analysis</span></div>
+        <a class="card-link" href="https://github.com/vizekor1/custom-hash-table" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="card">
+        <h3>Cipher Encryption Engine</h3>
+        <p class="role">Applied Software Design · CMSC 202</p>
+        <p>Three classical ciphers (Atbash, Scytale, Ong) implemented in C++ behind a shared interface, designed so new ciphers can be added without touching existing code.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">OOP</span><span class="tag">Class Hierarchies</span></div>
+        <a class="card-link" href="https://github.com/vizekor1/cipher-encryption-engine" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="card">
+        <h3>Pulsify</h3>
+        <p class="role">Full-Stack Health-Tech · Bison Bytes Hackathon</p>
+        <p>A full-stack healthcare prototype built end-to-end in 24 hours — Flask backend, JS/HTML/CSS frontend — as the team's architecture and implementation lead.</p>
+        <div class="tags"><span class="tag">Flask</span><span class="tag">JavaScript</span><span class="tag">Full-Stack</span></div>
+        <a class="card-link" href="https://github.com/vizekor1/pulsify" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><h2>Experience</h2></div>
+    <div class="exp-item">
+      <div>
+        <h3>Patient Care Technician Intern — Neuro ICU</h3>
+        <div class="org">Johns Hopkins Bayview Medical Center</div>
+      </div>
+      <div class="when">Oct 2025 – Present</div>
+      <ul>
+        <li>Collaborate daily with physicians, nurses, and specialists, translating clinical and neurological data into clear documentation used across a multidisciplinary care team.</li>
+        <li>Interpret patient findings for TBIs, hemorrhages, and tumors under time-sensitive conditions — close, ongoing exposure to clinical data in oncology and neuro-critical care.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><h2>Skills</h2></div>
+    <div class="skills">
+      <div class="skill-group">
+        <div class="k">Languages</div>
+        <div class="chip-row"><span class="chip">Python</span><span class="chip">C++</span><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="k">Bioinformatics</div>
+        <div class="chip-row"><span class="chip">Sequence Alignment</span><span class="chip">BLAST</span><span class="chip">UniProt</span><span class="chip">Statistical Validation</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="k">Engineering</div>
+        <div class="chip-row"><span class="chip">Data Structures</span><span class="chip">OOP Design</span><span class="chip">Big-O Analysis</span><span class="chip">Git</span></div>
+      </div>
+      <div class="skill-group">
+        <div class="k">Tools</div>
+        <div class="chip-row"><span class="chip">GCC / G++</span><span class="chip">Flask</span><span class="chip">Command Line</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="signoff mono">Built &amp; maintained by Victor Izekor</span>
+  <div class="links">
+    <a href="mailto:victorizekor@icloud.com">victorizekor@icloud.com</a>
+    <a href="https://linkedin.com/in/victor-izekor-3002lbb" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/vizekor1" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
